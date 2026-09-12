@@ -1,0 +1,469 @@
+<title>Start Up Destrava Massa</title>
+<style>
+  :root{
+    --bg:#0a0c07;
+    --bg-2:#0f120a;
+    --surface:#141810;
+    --surface-2:#191e12;
+    --line:rgba(198,255,61,0.14);
+    --line-strong:rgba(198,255,61,0.30);
+    --ink:#f2f4e9;
+    --muted:#9aa189;
+    --muted-2:#6d7460;
+    --accent:#c6ff3d;
+    --accent-ink:#0c1206;
+    --accent-soft:rgba(198,255,61,0.09);
+    --mint:#7fe7c4;
+    --warn:#ff7a45;
+    --warn-soft:rgba(255,122,69,0.08);
+    --radius:16px;
+    --gutter:20px;
+    --content-w:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope',ui-sans-serif,system-ui,-apple-system,sans-serif;
+    font-size:1.05rem;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:var(--accent-ink);}
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3,h4{margin:0;text-wrap:balance;font-family:'Anton',ui-sans-serif,sans-serif;font-weight:400;letter-spacing:0.01em;}
+  p{margin:0;}
+  ul,ol{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;cursor:pointer;}
+  .mono{font-family:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;}
+
+  .eyebrow{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:18px;height:1px;background:var(--accent);flex:none;}
+  .eyebrow.center{justify-content:center;}
+  .eyebrow.center::before{display:none;}
+
+  .wrap{max-width:var(--content-w);margin:0 auto;padding-inline:var(--gutter);}
+  section{padding-block:clamp(64px,10vw,120px);border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .sticky-stack{position:sticky;top:0;z-index:40;}
+  header.site{background:rgba(10,12,7,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+
+  /* ---------- promo countdown bar ---------- */
+  .promo-bar{background:linear-gradient(90deg, rgba(255,122,69,0.14), rgba(255,122,69,0.04));border-bottom:1px solid rgba(255,122,69,0.35);}
+  .promo-bar-inner{max-width:var(--content-w);margin:0 auto;padding:9px var(--gutter);display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.76rem;letter-spacing:0.02em;color:var(--ink);}
+  .promo-bar .dot{width:6px;height:6px;border-radius:50%;background:var(--warn);flex:none;animation:promo-pulse 1.4s ease-in-out infinite;}
+  @media (prefers-reduced-motion: reduce){.promo-bar .dot{animation:none;}}
+  @keyframes promo-pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+  .promo-bar .cd{color:var(--warn);font-weight:700;letter-spacing:0.05em;font-variant-numeric:tabular-nums;}
+  [data-countdown-wrap].is-expired{display:none;}
+
+  /* ---------- offer timer chip ---------- */
+  .offer-timer{display:flex;width:fit-content;align-items:center;gap:8px;margin:22px auto 0;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,122,69,0.4);background:var(--warn-soft);color:var(--warn);font-family:'JetBrains Mono',monospace;font-size:0.76rem;letter-spacing:0.03em;text-transform:uppercase;}
+  .offer-timer .cd{font-weight:700;font-variant-numeric:tabular-nums;}
+  .nav{max-width:var(--content-w);margin:0 auto;padding-inline:var(--gutter);height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .logo{font-family:'Anton',sans-serif;font-size:1.3rem;display:flex;align-items:baseline;gap:2px;white-space:nowrap;}
+  .logo .up{color:var(--accent);}
+  .navlinks{display:flex;gap:28px;font-family:'JetBrains Mono',monospace;font-size:0.76rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);}
+  .navlinks a{text-decoration:none;transition:color .15s ease;}
+  .navlinks a:hover{color:var(--ink);}
+  @media (max-width:760px){.navlinks{display:none;}}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 28px;border-radius:999px;border:1px solid transparent;font-family:'JetBrains Mono',monospace;font-size:0.82rem;letter-spacing:0.07em;text-transform:uppercase;text-decoration:none;transition:transform .15s ease, box-shadow .15s ease;white-space:nowrap;}
+  .btn-primary{background:var(--accent);color:var(--accent-ink);font-weight:700;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 26px -10px rgba(198,255,61,0.5);}
+  .btn-ghost{border-color:var(--line-strong);color:var(--ink);background:transparent;padding:14px 24px;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-sm{padding:10px 18px;font-size:0.72rem;}
+  .link-cta{font-family:'JetBrains Mono',monospace;font-size:0.76rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+  .link-cta:hover{text-decoration:underline;}
+
+  .panel{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(52px,8vw,92px);}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;}
+  @media (max-width:920px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
+  .hero h1{font-size:clamp(2.3rem,5.4vw,3.7rem);line-height:1.05;margin-top:18px;}
+  .hero h1 .accent{color:var(--accent);}
+  .hero-sub{max-width:50ch;color:var(--muted);font-size:1.1rem;margin-top:22px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;align-items:center;}
+  .hero-note{margin-top:16px;color:var(--muted-2);font-size:0.8rem;font-family:'JetBrains Mono',monospace;}
+  .hero-media img{border-radius:var(--radius);border:1px solid var(--line);}
+
+  /* ---------- feature strip ---------- */
+  .feats{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:64px;padding-top:44px;border-top:1px solid var(--line);}
+  .feat{display:flex;align-items:center;gap:12px;flex:1 1 200px;}
+  .feat .ic{font-size:1.3rem;flex:none;}
+  .feat .tx{font-size:0.88rem;color:var(--muted);}
+  .feat .tx b{display:block;color:var(--ink);font-size:0.94rem;font-weight:700;}
+
+  /* ---------- problem (editorial statement) ---------- */
+  .problem{text-align:center;}
+  .problem .eyebrow{margin-inline:auto;}
+  .problem-lines{max-width:640px;margin:26px auto 0;font-family:'Anton',sans-serif;font-size:clamp(1.5rem,3.4vw,2.15rem);line-height:1.35;color:var(--ink);}
+  .problem-lines .fade{color:var(--muted);}
+  .problem-tail{max-width:52ch;margin:30px auto 0;color:var(--muted);font-size:1.05rem;}
+  .problem-tail b{color:var(--accent);font-weight:800;}
+
+  /* ---------- apresentacao ---------- */
+  .present{display:grid;grid-template-columns:0.95fr 1.05fr;gap:56px;align-items:center;}
+  @media (max-width:900px){.present{grid-template-columns:1fr;gap:40px;}}
+  .present h2{font-size:clamp(1.9rem,3.6vw,2.6rem);margin-top:16px;}
+  .present p{color:var(--muted);margin-top:18px;font-size:1.05rem;max-width:48ch;}
+
+  /* ---------- teaser frame (blurred previews) ---------- */
+  .teaser{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line-strong);}
+  .teaser img{border-radius:0;}
+  .teaser-badge{
+    position:absolute;left:14px;bottom:14px;right:14px;
+    display:flex;align-items:center;gap:8px;
+    background:rgba(10,12,7,0.7);border:1px solid var(--line-strong);
+    border-radius:10px;padding:9px 12px;backdrop-filter:blur(4px);
+    font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.04em;color:var(--accent);text-transform:uppercase;
+  }
+  .teaser-badge .lock{font-size:0.9rem;}
+
+  /* ---------- complementos ---------- */
+  .comps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  @media (max-width:900px){.comps{grid-template-columns:1fr;max-width:420px;margin-inline:auto;}}
+  .comp-card h3{font-size:1.2rem;margin-top:16px;}
+  .comp-card .kicker{font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mint);}
+  .comp-card p{color:var(--muted);font-size:0.92rem;margin-top:8px;}
+  .comp-card .link-cta{margin-top:14px;}
+
+  /* ---------- prova social ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:end;}
+  @media (max-width:820px){.testi-grid{grid-template-columns:1fr;max-width:340px;margin-inline:auto;}}
+  .testi-card img{border-radius:12px;border:1px solid var(--line);}
+  .testi-cap{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:0.04em;}
+  .testi-note{max-width:56ch;margin:34px auto 0;text-align:center;color:var(--muted-2);font-size:0.84rem;font-style:italic;}
+
+  /* ---------- garantia ---------- */
+  .guarantee{max-width:620px;margin-inline:auto;text-align:center;padding:44px 32px;}
+  .guarantee .shield{font-size:2.4rem;}
+  .guarantee h3{font-size:clamp(1.5rem,3vw,2rem);margin-top:14px;letter-spacing:0.02em;}
+  .guarantee h3 span{color:var(--accent);}
+  .guarantee p{color:var(--muted);margin-top:16px;font-size:0.98rem;}
+  .guarantee .stamp{margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-2);}
+
+  /* ---------- oferta ---------- */
+  .offer-wrap{max-width:640px;margin-inline:auto;padding:40px;text-align:center;}
+  .offer-wrap .kicker{font-family:'JetBrains Mono',monospace;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mint);}
+  .offer-wrap h3{font-size:clamp(1.7rem,3.4vw,2.2rem);margin-top:10px;}
+  .offer-wrap .tag{color:var(--muted);margin-top:10px;font-size:0.98rem;}
+  .offer-items{margin:28px 0;display:inline-flex;flex-direction:column;gap:10px;text-align:left;}
+  .offer-items li{display:flex;gap:10px;font-size:0.98rem;}
+  .offer-items li::before{content:"✓";color:var(--accent);font-weight:700;flex:none;}
+  .price-line{font-family:'Anton',sans-serif;font-size:3rem;color:var(--accent);margin-top:6px;}
+  .price-line small{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--muted);display:block;margin-top:6px;letter-spacing:0.04em;text-transform:uppercase;}
+  .offer-wrap .btn-primary{margin-top:26px;padding:18px 40px;font-size:0.9rem;width:100%;max-width:360px;}
+  .offer-foot{margin-top:16px;color:var(--muted-2);font-size:0.82rem;}
+  .offer-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px;}
+  .offer-badges span{font-family:'JetBrains Mono',monospace;font-size:0.66rem;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:999px;letter-spacing:0.03em;}
+
+  .disclaimer{display:flex;gap:12px;padding:18px 20px;background:var(--warn-soft);border:1px solid rgba(255,122,69,0.28);border-radius:12px;color:var(--muted);font-size:0.84rem;max-width:760px;margin:36px auto 0;}
+  .disclaimer b{color:var(--warn);}
+
+  /* ---------- faq ---------- */
+  .faq{display:flex;flex-direction:column;gap:10px;max-width:760px;margin-inline:auto;}
+  .faq-item{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;}
+  .faq-item summary{list-style:none;cursor:pointer;padding:19px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:0.98rem;font-weight:700;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .q::before{content:"> ";font-family:'JetBrains Mono',monospace;color:var(--accent);}
+  .faq-item summary .chevron{font-family:'JetBrains Mono',monospace;color:var(--muted-2);transition:transform .2s ease;flex:none;}
+  .faq-item[open] summary .chevron{transform:rotate(45deg);color:var(--accent);}
+  .faq-item .a{padding:0 22px 20px 22px;color:var(--muted);font-size:0.93rem;max-width:64ch;}
+
+  /* ---------- cta final ---------- */
+  .final-cta{text-align:center;}
+  .final-cta h2{font-size:clamp(2rem,4.6vw,3.1rem);max-width:18ch;margin-inline:auto;}
+  .final-cta p{color:var(--muted);max-width:48ch;margin:16px auto 0;}
+  .final-cta .btn-primary{margin-top:28px;padding:18px 42px;font-size:0.92rem;}
+
+  footer{padding-block:36px;}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:0.8rem;color:var(--muted-2);}
+  .foot-links{display:flex;gap:20px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;}
+  .foot-links a{text-decoration:none;}
+  .foot-links a:hover{color:var(--accent);}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<div class="sticky-stack">
+  <div class="promo-bar" data-countdown-wrap>
+    <div class="promo-bar-inner">
+      <span class="dot"></span>
+      <span>Condição especial por tempo limitado — termina em</span>
+      <span class="cd mono" data-countdown>10:00</span>
+    </div>
+  </div>
+  <header class="site">
+    <div class="nav">
+      <div class="logo">START<span class="up">UP</span></div>
+      <nav class="navlinks">
+        <a href="#metodo">Como funciona</a>
+        <a href="#garantia">Garantia</a>
+        <a href="#faq">Dúvidas</a>
+      </nav>
+      <a class="btn btn-primary btn-sm" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero acessar</a>
+    </div>
+  </header>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Start Up · Destrava Massa</p>
+        <h1>VOCÊ TREINA PARA CRESCER.<br><span class="accent">MAS SERÁ QUE SUA ALIMENTAÇÃO ESTÁ ACOMPANHANDO?</span></h1>
+        <p class="hero-sub">Descubra uma forma mais simples de organizar suas refeições e tornar sua rotina de ganho de massa muito mais prática.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero conhecer o Start Up</a>
+          <a class="btn btn-ghost" href="#metodo">Como funciona ↓</a>
+        </div>
+        <p class="hero-note">// disciplina hoje. resultados amanhã.</p>
+      </div>
+      <div class="hero-media">
+        <img src="assets/hero-poster.jpg" alt="Capa do guia Start Up Destrava Massa">
+      </div>
+    </div>
+
+    <div class="feats">
+      <div class="feat"><span class="ic">📖</span><span class="tx"><b>Guia digital</b>acesso imediato</span></div>
+      <div class="feat"><span class="ic">🍽️</span><span class="tx"><b>Refeições práticas</b>sem complicação</span></div>
+      <div class="feat"><span class="ic">🧭</span><span class="tx"><b>Organização simples</b>menos improviso</span></div>
+      <div class="feat"><span class="ic">⚡</span><span class="tx"><b>Entrega pela Kiwify</b>direto no seu e-mail</span></div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="problem wrap">
+    <p class="eyebrow center">Isso te soa familiar?</p>
+    <p class="problem-lines">Você treina.<br>Tenta comer mais.<br><span class="fade">Mas a rotina vira improviso.</span></p>
+    <p class="problem-tail">Um dia falta comida. No outro você não sabe o que preparar. Depois, enjoa das mesmas refeições —
+      e no final, a alimentação acaba sendo <b>a parte mais difícil de manter.</b></p>
+  </section>
+
+  <!-- APRESENTACAO -->
+  <section id="metodo" class="wrap">
+    <div class="present">
+      <div>
+        <p class="eyebrow">A solução</p>
+        <h2>O Start Up foi criado<br>pra tirar o improviso<br>da rotina.</h2>
+        <p>Você recebe uma seleção prática de refeições, ideias, combinações e orientações para facilitar sua
+          alimentação no dia a dia — pensada pra quem treina e quer parar de adivinhar o que comer.</p>
+        <p style="margin-top:14px;">Organização simples, sem depender de planilha, calculadora ou dieta engessada.</p>
+        <a class="btn btn-primary" style="margin-top:28px;" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero destravar minha rotina</a>
+      </div>
+      <div class="teaser">
+        <img src="assets/teaser-receitas.jpg" alt="Prévia de uma página do guia Start Up">
+        <div class="teaser-badge"><span class="lock">🔒</span> conteúdo completo liberado no guia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLEMENTOS -->
+  <section class="wrap">
+    <div class="eyebrow" style="margin-bottom:14px;">Também fazem parte do método</div>
+    <h2 style="font-size:clamp(1.8rem,3.4vw,2.4rem);max-width:18ch;">Treino e um hack a mais, se você quiser ir além.</h2>
+    <div class="comps" style="margin-top:44px;">
+      <div class="comp-card">
+        <div class="teaser"><img src="assets/teaser-treino-m.jpg" alt="Prévia do Treino Masculino Destrava Progresso"><div class="teaser-badge"><span class="lock">🔒</span> ficha completa no acesso</div></div>
+        <span class="kicker">Complemento</span>
+        <h3>Treino Masculino</h3>
+        <p>Uma divisão de treino pronta para quem quer parar de treinar sem direção.</p>
+        <a class="link-cta" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero conhecer →</a>
+      </div>
+      <div class="comp-card">
+        <div class="teaser"><img src="assets/teaser-treino-f.jpg" alt="Prévia do Treino Feminino Destrava Progresso"><div class="teaser-badge"><span class="lock">🔒</span> ficha completa no acesso</div></div>
+        <span class="kicker">Complemento</span>
+        <h3>Treino Feminino</h3>
+        <p>Uma rotina estruturada com foco em pernas, glúteos e desenvolvimento completo.</p>
+        <a class="link-cta" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero conhecer →</a>
+      </div>
+      <div class="comp-card">
+        <div class="teaser"><img src="assets/teaser-bomba.jpg" alt="Prévia do bônus Bomba Natural"><div class="teaser-badge"><span class="lock">🔒</span> receita completa no acesso</div></div>
+        <span class="kicker">Bônus extra</span>
+        <h3>A Bomba Natural</h3>
+        <p>Um dos hacks mais simples do método pra somar calorias e proteína à rotina, sem precisar montar mais uma refeição.</p>
+        <a class="link-cta" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero conhecer →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVA SOCIAL -->
+  <section class="wrap">
+    <p class="eyebrow center" style="margin-inline:auto;">Quem já está dentro</p>
+    <h2 style="text-align:center;font-size:clamp(1.9rem,3.6vw,2.5rem);margin-top:14px;">Relatos de quem aplicou.</h2>
+    <div class="testi-grid" style="margin-top:44px;">
+      <div class="testi-card">
+        <img src="assets/testimonials/t-rafael.jpg" alt="Print de conversa: aluno relatando evolução no segundo mês de treino">
+        <p class="testi-cap">Rafael · SP</p>
+      </div>
+      <div class="testi-card">
+        <img src="assets/testimonials/t-bruno.jpg" alt="Print de conversa: aluno agradecendo pelo hack de ganho de massa muscular">
+        <p class="testi-cap">Bruno</p>
+      </div>
+      <div class="testi-card">
+        <img src="assets/testimonials/t-aluna.jpg" alt="Print de mensagem de aluna elogiando as receitas do guia">
+        <p class="testi-cap">Aluna</p>
+      </div>
+    </div>
+    <p class="testi-note">Relatos espontâneos enviados por compradores. Resultados individuais podem variar.</p>
+  </section>
+
+  <!-- GARANTIA -->
+  <section id="garantia" class="wrap">
+    <div class="panel guarantee">
+      <div class="shield">🛡️</div>
+      <h3>Garantia de <span>7 dias</span></h3>
+      <p>Você terá 7 dias para conhecer o material. Caso entenda que o produto não faz sentido para você, poderá
+        solicitar o reembolso dentro do prazo da garantia, conforme as condições da plataforma.</p>
+      <p class="stamp">compra segura</p>
+    </div>
+  </section>
+
+  <!-- OFERTA -->
+  <section id="oferta" class="wrap">
+    <div class="panel offer-wrap">
+      <p class="kicker">Acesso</p>
+      <h3>Start Up — Destrava Massa</h3>
+      <p class="tag">Organize sua alimentação para o ganho de massa, sem complicação.</p>
+      <ul class="offer-items">
+        <li>50 refeições práticas</li>
+        <li>Guia digital</li>
+        <li>Acesso pela Kiwify</li>
+        <li>Garantia de 7 dias</li>
+      </ul>
+      <div class="offer-timer" data-countdown-wrap>⏳ essa condição expira em <span class="cd" data-countdown>10:00</span></div>
+      <div class="price-line">R$ 27,90<small>pagamento único</small></div>
+      <a class="btn btn-primary" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero acessar agora</a>
+      <p class="offer-foot">Pagamento seguro e entrega digital através da Kiwify.</p>
+      <div class="offer-badges">
+        <span>compra segura</span>
+        <span>acesso digital</span>
+        <span>entrega pela kiwify</span>
+        <span>garantia de 7 dias</span>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <span class="mono" style="font-size:1.1rem;">!</span>
+      <p><b>Aviso:</b> este conteúdo é educacional e não substitui orientação de nutricionista ou educador físico.
+        Resultados variam de pessoa para pessoa.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="wrap">
+    <p class="eyebrow center" style="margin-inline:auto;">Dúvidas rápidas</p>
+    <h2 style="text-align:center;font-size:clamp(1.9rem,3.6vw,2.5rem);margin-top:14px;">Antes de entrar</h2>
+    <div class="faq" style="margin-top:44px;">
+      <details class="faq-item" open>
+        <summary><span class="q">O material serve para homem e mulher?</span><span class="chevron">+</span></summary>
+        <div class="a">Sim — o Start Up e os treinos complementares têm versões pensadas para os dois públicos.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Sou iniciante, vou conseguir seguir?</span><span class="chevron">+</span></summary>
+        <div class="a">Sim. O material foi pensado para ser simples de aplicar, com orientações de progressão mesmo
+          para quem está começando agora.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Os treinos complementares precisam de academia?</span><span class="chevron">+</span></summary>
+        <div class="a">Eles foram pensados para estrutura de academia, com adaptações possíveis para treinar em casa.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Como recebo o material depois da compra?</span><span class="chevron">+</span></summary>
+        <div class="a">Após a confirmação do pagamento, você recebe o acesso ao conteúdo digital através da Kiwify.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Tem garantia?</span><span class="chevron">+</span></summary>
+        <div class="a">Sim — 7 dias de garantia. Se você entender que o material não faz sentido pra você, é só
+          solicitar o reembolso dentro do prazo, conforme as condições da Kiwify.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="final-cta wrap">
+    <p class="eyebrow center">Chega de improvisar</p>
+    <h2 style="margin-top:14px;">Organize sua alimentação e destrave o próximo nível.</h2>
+    <p>Um método simples pra quem quer parar de improvisar a rotina de ganho de massa.</p>
+    <a class="btn btn-primary" data-checkout href="https://pay.kiwify.com.br/rdPS7tf">Quero destravar minha rotina</a>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="foot-row">
+    <div class="logo" style="font-size:1rem;">START<span class="up">UP</span></div>
+    <div class="foot-links">
+      <a href="#metodo">Como funciona</a>
+      <a href="#garantia">Garantia</a>
+      <a href="#faq">Dúvidas</a>
+    </div>
+    <span>conteúdo educacional · não substitui acompanhamento profissional</span>
+  </div>
+</footer>
+
+<script>
+  // ==== CONFIG ====
+  // Para trocar o link de checkout em toda a página, altere só esta linha:
+  const CHECKOUT_URL = "https://pay.kiwify.com.br/rdPS7tf";
+  // Duração da contagem regressiva, em minutos:
+  const COUNTDOWN_MINUTES = 10;
+  // =================
+  document.querySelectorAll('[data-checkout]').forEach(function (el) {
+    el.setAttribute('href', CHECKOUT_URL);
+  });
+
+  (function () {
+    var STORAGE_KEY = 'su_promo_deadline_v1';
+    var DURATION_MS = COUNTDOWN_MINUTES * 60 * 1000;
+    var deadline = null;
+
+    try {
+      var stored = window.localStorage.getItem(STORAGE_KEY);
+      if (stored && !isNaN(parseInt(stored, 10))) {
+        deadline = parseInt(stored, 10);
+      }
+    } catch (e) { /* localStorage indisponível: segue sem persistir */ }
+
+    if (!deadline || deadline <= Date.now()) {
+      deadline = Date.now() + DURATION_MS;
+      try { window.localStorage.setItem(STORAGE_KEY, String(deadline)); } catch (e) { /* ok sem persistir */ }
+    }
+
+    var cds = document.querySelectorAll('[data-countdown]');
+    var wraps = document.querySelectorAll('[data-countdown-wrap]');
+
+    function render() {
+      var diff = deadline - Date.now();
+      if (diff <= 0) {
+        wraps.forEach(function (el) { el.classList.add('is-expired'); });
+        clearInterval(timer);
+        return;
+      }
+      var totalSeconds = Math.floor(diff / 1000);
+      var m = Math.floor(totalSeconds / 60);
+      var s = totalSeconds % 60;
+      var text = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+      cds.forEach(function (el) { el.textContent = text; });
+    }
+
+    render();
+    var timer = setInterval(render, 1000);
+  })();
+</script>
